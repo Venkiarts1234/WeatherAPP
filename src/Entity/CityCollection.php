@@ -6,7 +6,7 @@ use App\Repository\CityCollectionRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=CityColletionRepository::class)
+ * @ORM\Entity(repositoryClass=CityCollectionRepository::class)
  */
 class CityCollection
 {

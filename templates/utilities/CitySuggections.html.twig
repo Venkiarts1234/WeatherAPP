@@ -1,0 +1,5 @@
+<ul id="country-list">
+   {% for item in data %}
+        <li class="city-name" data-name ="{{item.name}}" data-id={{item.reference_id}}>{{ item.name|e }}, {{ item.country|e }}</li>
+    {% endfor %}
+</ul>

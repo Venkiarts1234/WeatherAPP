@@ -1,0 +1,61 @@
+<div class="cls-weather">
+    <div class="col-6 card-left">
+        <img src="{{ icon }}" title="Weather Icon"/>
+        <div class="cls-tmp">
+            <div>{{temparature}}</div><sup>{{'&#176'}}C</sup>
+        </div>
+        <div class="cls-des">
+            <div>Feels Like: {{ feels_like }}{{ '&#176' }}C</div>
+            <div>Humidity: {{ humidity }} %</div>
+            <div>Min temparature: {{min_temparature}}{{'&#176'}}C</div>
+            <div>Max Temparature: {{max_temparature}}{{'&#176'}}C</div>
+            <div>Wind speed: {{wind_speed}}mph</div>
+            {% if rain is defined %}
+            <div>Rain: {{ rain }}mm</div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-6 cls-city">
+        <h2>{{city_name}}</h2>
+        <p>{{ "now"|date("l H:i", "Europe/London") }} </p>
+                <div>
+            {{ description}}
+        </div>
+    </div>
+</div>
+<style>
+    .card-left {
+        width: 50%;
+        float:left;
+    }
+    .card-left > img {
+        float:left;
+    }
+    .cls-tmp{
+ 
+        margin-top: 25px;
+    }
+    .cls-tmp > div {
+        font-size: 28px;
+        display: inline-block;
+    }
+    .cls-tmp > sup {
+        font-size: 20px;
+    }
+    .cls-des {
+        clear:both;
+        margin-left: 25px;
+    }
+    .cls-weather{
+        margin-left:50px;
+        margin-right:50px;
+        color: #fff;
+    }
+    .cls-clear {
+        clear:both;
+    }
+    .cls-city {
+        text-align: right;
+        padding-top:10px;
+    }
+</style>

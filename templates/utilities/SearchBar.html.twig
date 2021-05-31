@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<style>
+body{width: 1440px; height:auto;}
+.frmSearch {border: 1px solid #69a3cc; background-color: #7babe6; margin: 2px 0px;padding:40px;border-radius:4px;}
+#country-list{float:left;list-style:none;margin-top:-3px;padding:0;width:190px;position: absolute;}
+#country-list li{padding: 10px; background: #f0f0f0; border-bottom: #bbb9b9 1px solid;}
+#country-list li:hover{background:#ece3d2;cursor: pointer;}
+#search-box{padding: 10px;border: #a8d4b1 1px solid;border-radius:4px; width:100%;}
+.wrap{ width: 60%; margin: 0 auto; clear:both; display: flex; flex-direction: column; min-height: 100vh; font-family: sans-serif;}
+.input-search-box { width: 80%; margin: 0 auto; }
+</style>
+<div class="wrap">
+    <div class="frmSearch">
+        <div class="input-search-box">
+            <input type="text" id="search-box" data-baseurl="{{ app.request.getSchemeAndHttpHost() }}" placeholder="Enter City Name" />
+            <div id="suggesstion-box"></div>
+        </div>
+        <div class="weather"></div>
+    </div>
+</div>
+<script>
+$(document).ready(function(){
+    $('#search-box').keyup(function (e) {
+        let keys = this.value;
+        let serverUrl = $(this).data('baseurl');
+        console.log(serverUrl);
+        if(keys || keys !=''){
+        let url = serverUrl+'/api/weather/'+keys;
+        $('.suggetion-box').hide();
+        $.ajax({
+            type: "GET",
+            url: url,
+            success: function(data)
+            {
+                $("#suggesstion-box").show();
+                $("#suggesstion-box").html(data.html);
+                $("#search-box").css("background","#FFF");
+            }
+        });
+        } else {
+            $('#suggesstion-box').hide();
+        }
+    });
+    $(document).on("click", '.city-name', function(event) { 
+        var cityId = $(this).data("id");
+        var cityName = $(this).data("name");
+        $("#search-box").val(cityName);
+        $("#suggesstion-box").hide();
+        var weatherResultUrl = 'http://127.0.0.1:8000/api/city/'+cityId
+        $.ajax({
+            type: "GET",
+            url: weatherResultUrl,
+            beforeSend: function(){
+                $("#search-box").css("background","#FFF url(/assets/images/LoaderIcon.gif) no-repeat 600px");
+            },
+            success: function(data)
+            {
+                $(".weather").html(data);
+                $("#search-box").css("background","#FFF");
+            }
+        });
+    });
+});
+</script>
+{% endblock %}
