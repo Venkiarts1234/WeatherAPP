@@ -19,7 +19,7 @@ class ApiEndpointController extends AbstractController {
     public function getCity ($cityName, KernelInterface $appKernel)
     {
         $cityCollectionRepo = $this->getDoctrine()->getRepository(CityCollection::class);
-        $accurateCity = $cityCollectionRepo->findMatchingCity($cityName, 10);
+        $accurateCity = $cityCollectionRepo->findMatchingCity($cityName, 10, 'GB');
         $cityData =[];
         if(count($accurateCity) >= 1) {    
             foreach($accurateCity as $city) {
